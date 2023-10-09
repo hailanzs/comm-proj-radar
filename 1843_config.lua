@@ -3,14 +3,14 @@
 --------------------------------------------------------------
 
 
-COM_PORT = 7-- TODO: edit this!!!
+COM_PORT = 8-- TODO: edit this!!!
 RADARSS_PATH = "C:\\ti\\mmwave_studio_02_01_01_00\\rf_eval_firmware\\radarss\\xwr18xx_radarss.bin"
 MASTERSS_PATH = "C:\\ti\\mmwave_studio_02_01_01_00\\rf_eval_firmware\\masterss\\xwr18xx_masterss.bin"
 
 -------- VERY IMPORTANT AND SERIOUS RADAR SETTINGS --------
 -- General
-NUM_TX = 2
-NUM_RX = 2
+NUM_TX = 3
+NUM_RX = 4
 
 -- ProfileConfig
 START_FREQ = 77 -- GHz
@@ -30,7 +30,7 @@ RX_GAIN = 30 -- dB
 -- FrameConfig
 START_CHIRP_TX = 0
 END_CHIRP_TX = NUM_TX-1 -- 2 for 1843
-NUM_FRAMES = 500--580 --
+NUM_FRAMES = 20--580 --
 CHIRP_LOOPS = 1 --    
 PERIODICITY = 20 -- ms 30
 -----------------------------------------------------------
@@ -63,7 +63,7 @@ ar1.RfEnable()
 
 -------- STATIC CONFIG STUFF --------
 --ar1.ChanNAdcConfig(1, 1, 1, 1, 1, 1, 1, 2, 1, 0) 
-ar1.ChanNAdcConfig(1, 0, 1, 1, 0, 0, 1, 2, 1, 0) 
+ar1.ChanNAdcConfig(1, 1, 1, 1, 1, 1, 1, 2, 1, 0) 
 ar1.LPModConfig(0, 0)
 ar1.RfInit()
 --------------------------------------
@@ -75,9 +75,9 @@ ar1.LVDSLaneConfig(0, 1, 1, 0, 0, 1, 0, 0)
 
 -------- SENSOR CONFIG STUFF --------
 ar1.ProfileConfig(0, START_FREQ, IDLE_TIME, ADC_START_TIME, RAMP_END_TIME, 0, 0, 0, 0, 0, 0, FREQ_SLOPE, 0, ADC_SAMPLES, SAMPLE_RATE, 0, 0, RX_GAIN)
---ar1.ChirpConfig(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)
-ar1.ChirpConfig(0, 0, 0, 0, 0, 0, 0, 1, 0, 0)
-ar1.ChirpConfig(1, 1, 0, 0, 0, 0, 0, 0, 0, 1)
+ar1.ChirpConfig(0, 0, 0, 0, 0, 0, 0, 0, 1, 0)
+ar1.ChirpConfig(1, 1, 0, 0, 0, 0, 0, 1, 0, 0)
+ar1.ChirpConfig(2, 2, 0, 0, 0, 0, 0, 0, 0, 1)
 ar1.FrameConfig(START_CHIRP_TX, END_CHIRP_TX, NUM_FRAMES, CHIRP_LOOPS, PERIODICITY, 0, 0, 1)
 -------------------------------------
 
