@@ -69,16 +69,8 @@ def beamform(X,idx):
 
 def process_raw_data(X):
     """pre-process raw mm-wave data to get the frequency spectrum."""
-    # bring the data to 0 mean
-    X_ = np.mean(X, axis=(1,2), keepdims=False)
-    X_ = X_ - np.mean(X_, axis=-1, keepdims=True)
-
     # take range FFT
-    X_rfft = scipy.fft.fft(X_, axis=1)
-    # X_bf, X_ph_bf, X_sph_pwr_range = beamform(X, idx)
-    X_power = np.abs(np.sum(X,axis=0))
-    X_phase_all = np.unwrap(np.angle(X_rfft), axis=0)
-    X_phase_all -= np.mean(X_phase_all, axis=0, keepdims=True)
+    X_rfft = scipy.fft.fft(X, axis=3)
       
-    return {'phase': X_phase_all, 'power': X_power}
+    return X_rfft
 

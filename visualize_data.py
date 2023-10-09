@@ -18,8 +18,9 @@ if __name__ == "__main__":
     print("You captured %d frames, for %d TX, %d Rx, and %d adc samples" % raw_data.shape)
 
     # process data
-    data = processing.process_raw_data(raw_data)
+    rfft = processing.process_raw_data(raw_data)
 
     # visualize data
-    plt.plot(np.squeeze(np.sum(data['power'],axis=(0,1))))
+    print(rfft.shape)
+    plt.plot(abs(np.squeeze(np.sum(rfft,axis=(0,1,2)))))
     plt.show()
