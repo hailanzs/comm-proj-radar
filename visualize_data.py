@@ -21,5 +21,5 @@ if __name__ == "__main__":
     data = processing.process_raw_data(raw_data)
 
     # visualize data
-    plt.plot(data['power'])
+    plt.plot(np.squeeze(np.sum(data['power'],axis=(0,1))))
     plt.show()
