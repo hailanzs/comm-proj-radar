@@ -2,3 +2,6 @@
 *.bin
 *.DS_Store
 *.asv
+*.pyc
+__pycache__
+

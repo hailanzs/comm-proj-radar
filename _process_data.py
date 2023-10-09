@@ -1,10 +1,6 @@
-from venv import create
 import numpy as np
-import scipy.signal as sig
 import scipy
 
-from statistics import stdev as std
-import heapq
 
 ### start helper functions ###
 
@@ -84,5 +80,5 @@ def process_raw_data(X):
     X_phase_all = np.unwrap(np.angle(X_rfft), axis=0)
     X_phase_all -= np.mean(X_phase_all, axis=0, keepdims=True)
       
-    return {'X_phase_all': X_phase_all, 'X_power': X_power}
+    return {'phase': X_phase_all, 'power': X_power}
 
