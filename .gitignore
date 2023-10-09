@@ -6,3 +6,4 @@
 __pycache__
 .empty/
 comm-proj/
+*.json

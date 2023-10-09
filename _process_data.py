@@ -67,10 +67,4 @@ def beamform(X,idx):
 ### end helper functions ###
 
 
-def process_raw_data(X):
-    """pre-process raw mm-wave data to get the frequency spectrum."""
-    # take range FFT
-    X_rfft = scipy.fft.fft(X, axis=3)
-      
-    return X_rfft
 
