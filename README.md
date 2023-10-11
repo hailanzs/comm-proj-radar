@@ -1,5 +1,5 @@
 
-# Radar Setup File 
+# Radar Basics 
 
 [Setup Instructions](https://docs.google.com/document/d/1Gyn5K0TfzVGeTWLXGM1u6azJFLpNYZUNc-R12ceEwQQ/edit)
 
