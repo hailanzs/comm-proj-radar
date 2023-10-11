@@ -3,7 +3,7 @@
 --------------------------------------------------------------
 
 
-COM_PORT = 8-- TODO: edit this!!!
+COM_PORT = 8 -- TODO: edit this!!!
 RADARSS_PATH = "C:\\ti\\mmwave_studio_02_01_01_00\\rf_eval_firmware\\radarss\\xwr18xx_radarss.bin"
 MASTERSS_PATH = "C:\\ti\\mmwave_studio_02_01_01_00\\rf_eval_firmware\\masterss\\xwr18xx_masterss.bin"
 
@@ -15,10 +15,10 @@ NUM_RX = 4
 -- ProfileConfig
 START_FREQ = 77 -- GHz
 IDLE_TIME = 7 -- us
-RAMP_END_TIME = 57--4558.02--26.19 -- us
-ADC_START_TIME = 5.28--5.57--7.07 --usn
-FREQ_SLOPE = 70.150--0.290--149.957 -- MHz/us
-ADC_SAMPLES = 512--16384--64
+RAMP_END_TIME = 57 -- us
+ADC_START_TIME = 5.28 --usn
+FREQ_SLOPE = 70.150 -- MHz/us
+ADC_SAMPLES = 512
 SAMPLE_RATE = 10000 -- ksps
 RX_GAIN = 30 -- dB
 
@@ -29,10 +29,10 @@ RX_GAIN = 30 -- dB
 
 -- FrameConfig
 START_CHIRP_TX = 0
-END_CHIRP_TX = NUM_TX-1 -- 2 for 1843
-NUM_FRAMES = 20--580 --
-CHIRP_LOOPS = 1 --    
-PERIODICITY = 20 -- ms 30
+END_CHIRP_TX = NUM_TX-1 
+NUM_FRAMES = 20
+CHIRP_LOOPS = 1   
+PERIODICITY = 20 -- ms 
 -----------------------------------------------------------
 
 -------- THIS IS FINE --------
@@ -62,7 +62,6 @@ ar1.RfEnable()
 --------
 
 -------- STATIC CONFIG STUFF --------
---ar1.ChanNAdcConfig(1, 1, 1, 1, 1, 1, 1, 2, 1, 0) 
 ar1.ChanNAdcConfig(1, 1, 1, 1, 1, 1, 1, 2, 1, 0) 
 ar1.LPModConfig(0, 0)
 ar1.RfInit()

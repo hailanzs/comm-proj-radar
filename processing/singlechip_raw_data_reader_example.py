@@ -210,25 +210,6 @@ def dp_numberOfEnabledChan(chanMask):
                 break
     return count
 
-# def dp_generateADCDataParams(mmwaveJSON):
-#     global Params
-#     frameCfg = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlFrameCfg_t"]
-
-#     adcDataParams = {
-#         "dataFmt": mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlAdcOutCfg_t"]["fmt"]["b2AdcOutFmt"],
-#         "iqSwap": mmwaveJSON["mmWaveDevices"]["rawDataCaptureConfig"]["rlDevDataFmtCfg_t"]["iqSwapSel"],
-#         "chanInterleave": mmwaveJSON["mmWaveDevices"]["rawDataCaptureConfig"]["rlDevDataFmtCfg_t"]["chInterleave"],
-#         "numChirpsPerFrame": frameCfg["numLoops"] * (frameCfg["chirpEndIdx"] - frameCfg["chirpStartIdx"] + 1),
-#         "adcBits": mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlAdcOutCfg_t"]["fmt"]["b2AdcBits"],
-#     }
-
-#     rxChanMask = int(mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlChanCfg_t"]["rxChannelEn"], 16)
-#     adcDataParams["numRxChan"] = dp_numberOfEnabledChan(rxChanMask)
-#     adcDataParams["numAdcSamples"] = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlProfiles"]["rlProfileCfg_t"]["numAdcSamples"]
-
-#     dp_printADCDataParams(adcDataParams)
-#     Params["adcDataParams"] = adcDataParams
-
 def dp_printADCDataParams(adcDataParams):
     print('Input ADC data parameters:')
     print('    dataFmt: {}'.format(adcDataParams["dataFmt"]))
@@ -239,26 +220,6 @@ def dp_printADCDataParams(adcDataParams):
     print('    numRxChan: {}'.format(adcDataParams["numRxChan"]))
     print('    numAdcSamples: {}'.format(adcDataParams["numAdcSamples"]))
 
-# def dp_generateRadarCubeParams(mmwaveJSON):
-#     global Params
-#     frameCfg = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlFrameCfg_t"]#["rlProfiles"]["rlProfileCfg_t"]
-#     frameCfg1 = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlProfiles"]["rlProfileCfg_t"]
-#     radarCubeParams = {
-#         "iqSwap": mmwaveJSON["mmWaveDevices"]["rawDataCaptureConfig"]["rlDevDataFmtCfg_t"]["iqSwapSel"],
-#     }
-
-#     rxChanMask = int(mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlChanCfg_t"]["rxChannelEn"], 16)
-#     radarCubeParams["numRxChan"] = dp_numberOfEnabledChan(rxChanMask)
-#     radarCubeParams["numTxChan"] = frameCfg["chirpEndIdx"] - frameCfg["chirpStartIdx"] + 1
-#     radarCubeParams["numRangeBins"] = 2 ** np.ceil(np.log2(frameCfg1["numAdcSamples"]))
-
-#     radarCubeParams["numDopplerChirps"] = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlFrameCfg_t"]["numLoops"]
-
-#     radarCubeParams["radarCubeFmt"] = 1
-
-#     dp_printRadarCubeParams(radarCubeParams)
-#     Params["radarCubeParams"] = radarCubeParams
-
 def dp_printRadarCubeParams(radarCubeParams):
     print('Radarcube parameters:')
     print('    iqSwap: {}'.format(radarCubeParams["iqSwap"]))
@@ -267,92 +228,6 @@ def dp_printRadarCubeParams(radarCubeParams):
     print('    numRxChan: {}'.format(radarCubeParams["numRxChan"]))
     print('    numTxChan: {}'.format(radarCubeParams["numTxChan"]))
     print('    numRangeBins: {}'.format(radarCubeParams["numRangeBins"]))
-
-# def dp_generateRFParams(mmwaveJSON, radarCubeParams, adcDataParams):
-#     frameCfg = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlProfiles"]["rlProfileCfg_t"]
-
-#     RFParams = {
-#         "startFreq": frameCfg["startFreqConst_GHz"],
-#         "freqSlope": frameCfg["freqSlopeConst_MHz_usec"],
-#         "sampleRate": frameCfg["digOutSampleRate"] / 1e3,
-#     }
-
-#     RFParams["numRangeBins"] = 2 ** np.ceil(np.log2(adcDataParams["numAdcSamples"]))
-#     RFParams["numDopplerBins"] = radarCubeParams["numDopplerChirps"]
-#     RFParams["bandwidth"] = abs(
-#         RFParams["freqSlope"] * frameCfg["numAdcSamples"] / frameCfg["digOutSampleRate"])
-
-#     C = 3e8
-#     RFParams["rangeResolutionsInMeters"] = C * RFParams["sampleRate"] / (
-#             2 * RFParams["freqSlope"] * RFParams["numRangeBins"] * 1e6)
-#     RFParams["dopplerResolutionMps"] = C / (
-#             2 * RFParams["startFreq"] * 1e9 * (
-#             frameCfg["idleTimeConst_usec"] + frameCfg["rampEndTime_usec"]) * 1e-6 * RFParams["numDopplerChirps"] *
-#                                               radarCubeParams["numTxChan"])
-#     RFParams["framePeriodicity"] = mmwaveJSON["mmWaveDevices"]["rfConfig"]["rlFrameCfg_t"]["framePeriodicity_msec"]
-
-#     return RFParams
-
-# def processingChain_rangeFFT(rangeWinType):
-#     global Params
-#     global dataSet
-#     global ui
-
-#     NChirp = Params["NChirp"]
-#     NChan = Params["NChan"]
-#     NRangeBin = Params["numRangeBins"]
-
-#     if rangeWinType == 1:  # hann
-#         win = np.hanning(Params["adcDataParams"]["numAdcSamples"])
-#     else:
-#         raise ValueError('Unsupported range window type')
-
-#     radarCubeData = []
-#     rawDataI = dataSet["rawFrameData"].real
-#     rawDataQ = dataSet["rawFrameData"].imag
-#     rawDataI = np.transpose(rawDataI, (0, 2, 1))
-#     rawDataQ = np.transpose(rawDataQ, (0, 2, 1))
-
-#     for chirpIdx in range(NChirp):
-#         rawDataI_chirp = rawDataI[chirpIdx, :, :]
-#         rawDataQ_chirp = rawDataQ[chirpIdx, :, :]
-#         rawDataI_chirp = np.matmul(rawDataI_chirp, np.diag(win))
-#         rawDataQ_chirp = np.matmul(rawDataQ_chirp, np.diag(win))
-#         radarCubeData_chirp = np.fft.fft(rawDataI_chirp + 1j * rawDataQ_chirp, axis=0)
-#         radarCubeData_chirp = np.fft.fftshift(radarCubeData_chirp, axes=0)
-#         radarCubeData.append(radarCubeData_chirp)
-#     return radarCubeData
-
-# def radarCube_processing(radarCubeData):
-    # global Params
-
-    # NChirp = Params["NChirp"]
-    # NChan = Params["NChan"]
-    # NRangeBin = Params["numRangeBins"]
-    # radarCubeParams = Params["radarCubeParams"]
-    # rfParams = Params["RFParams"]
-
-    # iqSwap = radarCubeParams["iqSwap"]
-
-    # rangeProfile = []
-
-    # for chirpIdx in range(NChirp):
-    #     radarCubeData_chirp = radarCubeData[chirpIdx]
-    #     radarCubeData_chirp = radarCubeData_chirp[:, 0:NChan]
-    #     rangeProfile_chirp = np.abs(radarCubeData_chirp)
-    #     rangeProfile.append(rangeProfile_chirp)
-
-    # radarCubeData = np.transpose(rangeProfile, (1, 0, 2))
-
-    # # reshape radarCubeData
-    # radarCubeData = radarCubeData.reshape(NRangeBin,NChirp,NChan)
-
-    # if iqSwap == 1:
-    #     radarCubeData = np.transpose(radarCubeData, (0, 1, 2))
-    # radarCubeData = radarCubeData.reshape(NRangeBin,NChirp,NChan)
-
-    # rangeProfile = radarCubeData
-    # return rangeProfile
 
 def rawDataReader(radarCfgFileName,rawDataFileName,radarCubeDataFileName):
     global Params
