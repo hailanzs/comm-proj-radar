@@ -1,5 +1,5 @@
 -- capture_directory               =   "0616"
-capture_file                    =   "1"
+capture_file                    =   "2"
 
 --TODO: edit this path!!
 SAVE_DATA_PATH = "C:\\Users\\robin\\Documents\\Communication\\comm-proj-radar\\record\\" .. capture_file .. ".bin"
