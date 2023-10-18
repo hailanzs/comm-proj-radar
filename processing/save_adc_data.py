@@ -1,6 +1,6 @@
 import os
 import json
-import singlechip_raw_data_reader_example as TI
+import processing.singlechip_raw_data_reader_example as TI
 
 ######################################################################################################
 def save_adc_data(filename, home_dir, capture_data_dir, json_filename):
