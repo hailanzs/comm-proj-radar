@@ -240,7 +240,7 @@ def rawDataReader(radarCfgFileName,rawDataFileName,radarCubeDataFileName):
 
     with open(mmwaveJSONfilename, 'r') as json_file:
         mmwaveJSON = json.load(json_file)
-    binFile = setupJSON["capturedFiles"]["fileBasePath"] + setupJSON["capturedFiles"]["files"]["rawFileName"]
+    binFile = os.path.join(setupJSON["capturedFiles"]["fileBasePath"], setupJSON["capturedFiles"]["files"]["rawFileName"])
     Params["fid_rawData"] = open(binFile, "rb")
 
     adcDataParams = dp_generateADCDataParams(mmwaveJSON)

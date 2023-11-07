@@ -20,7 +20,7 @@
     },
     "capturedFiles": {
         "numFilesCollected": 1,
-        "fileBasePath": "/Users/shanbhag/Documents/School/comm-proj-radars/recoreded_data",
+        "fileBasePath": "/Users/shanbhag/Documents/School/comm-proj-radars/data",
         "files": {
             "rawFileName": "1_Raw_0.bin",
             "processedFileName": "1_Raw_0.bin",

@@ -6,7 +6,9 @@ import processing.singlechip_raw_data_reader_example as TI
 def save_adc_data(filename, home_dir, capture_data_dir, json_filename):
     # Make sure this has the paths of the processed data you want
     rawDataFileName = os.path.join(home_dir, capture_data_dir, f'raw_{filename}')
+    print(rawDataFileName)
     radarCubeDataFileName = os.path.join(home_dir, capture_data_dir, f'rdc_{filename}')
+    print(radarCubeDataFileName)
 
     # Edit MMWAVE.JSON
     mmwave_filename = os.path.join(home_dir, '%s.mmwave.json' % json_filename)
