@@ -1,5 +1,6 @@
-*.bin
 *.DS_Store
+*.mat
+*.bin
 *.asv
 *.pyc
 __pycache__
