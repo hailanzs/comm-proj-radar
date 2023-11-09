@@ -74,8 +74,6 @@ def producer_real_time_1843(q, index):
     dca.sensor_config(chirps=num_tx, chirp_loops=chirp_loops, num_rx=num_rx, num_samples=samples_per_chirp)
     prev_time = time.time()
     initial_time = time.time()
-    # my_dict = sio.loadmat(os.path.join("C:\\Users\\hshanbha\\Box Sync\\Grad\\git\\robotic-sensing\\matlab_cpp", "arr.mat"))
-    # arr = np.squeeze(my_dict['arr'])
     while True:
         adc_data = dca.read()
         org_data = dca.organize(raw_frame=adc_data, num_chirps=num_tx*chirp_loops,
@@ -88,7 +86,6 @@ def producer_real_time_1843(q, index):
         fx = scipy.fft.fft(x, axis=-1)
 
         afx = np.squeeze(np.abs(fx))
-        # afx /= np.max(afx)
 
         total[0:-chirp_loops, :] = total[chirp_loops:, :]
         total[-chirp_loops:, :] = fx
@@ -109,7 +106,6 @@ def producer_real_time_1843(q, index):
         second_p = unwrapped_phase[1] 
 
         if PLOT_FFT:
-            # freq_spec = unwrapped_phase[phase_plot_len-100:phase_plot_len] - np.mean(unwrapped_phase[phase_plot_len-100:phase_plot_len])
             freq_spec = unwrapped_phase - np.mean(unwrapped_phase)
             # freq_spec = np.abs(scipy.fft.fft(freq_spec,data_rate))
             a,freq_spec = scipy.signal.welch(freq_spec,500)
@@ -118,7 +114,6 @@ def producer_real_time_1843(q, index):
         freq_spec = freq_spec[0:freq_plot_len]
         now = time.time()
         if now - prev_time > 0.1:
-            # print("freq", freq_spec.shape)
             q.put(["fft", afx])
             q.put(["freq", freq_spec])
             prev_time = now

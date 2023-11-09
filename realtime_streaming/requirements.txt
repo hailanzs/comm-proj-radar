@@ -1,0 +1,13 @@
+matplotlib
+numpy
+scipy
+utility
+torch
+argparse
+statistics
+sklearn
+natsort
+logging
+# multiprocessing
+# heapq
+# vlc # uncomment to run sounds in data capture
