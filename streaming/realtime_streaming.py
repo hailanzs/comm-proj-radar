@@ -150,7 +150,6 @@ class MyApp(ShowBase):
         return Task.cont
 
     def updateFreqPlotTask(self, task):
-        # print(self.freq_size)
         self.line_freq.set_ydata(self.freq_y_data)
         self.ax_freq.set_ylim([0,max(1e-5,np.max(self.freq_y_data[18:]))])#[0, 1])
         self.text_freq.remove()

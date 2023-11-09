@@ -1,18 +1,13 @@
-import numpy as np
 import time
 
-import matplotlib.pyplot as plt
-from mmwave.dataloader import DCA1000, adc
-import scipy
 import os
 import clr
 
 # helper functions
-def replace_filename(file1, date, expIdx, x):
+def replace_filename(file1, exp_name):
     with open(file1, 'r') as file:
         data = file.readlines()
-    data[0] = 'capture_directory               =   "%s"\n' % date
-    data[1] = 'capture_file                    =   "exp%d_x%d"\n' % (expIdx,x) 
+    data[0] = 'capture_file               =   "%s"\n' % exp_name
 
     with open(file1, 'w') as file:
         file.writelines(data)
@@ -22,16 +17,15 @@ def replace_filename(file1, date, expIdx, x):
 # measures data
 # can do processing if required later on
 class radar():
-    def __init__(self):
+    def __init__(self,home_dir,path_name,lua_script):
         self.captured = False
         self.chirp_loops = 1
         self.num_rx = 4
         self.num_tx = 2
         self.samples_per_chirp = 128 
         self.periodicity = 20
-        self.homedirectory = os.path.expanduser('~')
-        self.homedirectory = os.path.join(self.homedirectory,'Documents','berry-project')
-        self.file1 = open(os.path.join(self.homedirectory,'scripts','1843_setup_1.lua'), 'r')
+        self.homedirectory = home_dir
+        self.file1 = open(os.path.join(self.homedirectory,lua_script), 'r')
         Lines = self.file1.readlines()
         for line in Lines:
             if("CHIRP_LOOPS =" in line):
@@ -49,7 +43,7 @@ class radar():
         self.freq_plot_len = self.data_rate  // 2
         self.range_plot_len = self.samples_per_chirp
         self.power_dict = dict()
-        self.RtttNetClientAPI = self.Init_RSTD_Connection( r'C:\ti\mmwave_studio_02_01_01_00\mmWaveStudio\Clients\RtttNetClientController\RtttNetClientAPI.dll')
+        self.RtttNetClientAPI = self.Init_RSTD_Connection(path_name)
     
     
     def Init_RSTD_Connection(self, RSTD_DLL_Path):
@@ -83,12 +77,12 @@ class radar():
             print('Test message success')
         return RtttNetClientAPI
 
-    def mmwave_capture(self, date, expIdx, x):
-        file1 = os.path.join(self.homedirectory,'scripts','1843_run.lua')
+    def mmwave_capture(self, exp_name, script_name):
+        file1 = os.path.join(self.homedirectory,script_name)
         file2 = file1.replace("\\", "\\\\\\\\") 
         Lua_String = 'dofile("'+ file2 + '")'
         # update the lua file with new location to save the data
-        replace_filename(file1, date, expIdx, x)
+        replace_filename(file1, exp_name)
         ErrStatus = self.RtttNetClientAPI.RtttNetClient.SendCommand(Lua_String)
         if not ErrStatus == (0, None):
             print ('The frame did not get collected :(')
