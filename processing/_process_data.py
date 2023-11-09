@@ -1,69 +1,62 @@
 import numpy as np
 import scipy
+import scipy.io as sio
 
 
 ### start helper functions ###
 
-def beamform(X,idx):
-    """ X is of shape # frames x # Rx x # Tx x # bins 
+def beamform(X, locs):
     """
-    ph_bf = 0
-    beat_freq = scipy.fft.fft(X, axis=3)
-    num_frms, tx, rx, N_range = beat_freq.shape
+    Performs beamforming on the input data.
 
-    idxs = np.arange(idx-2,idx+3)
-    
-    N_x_stp = rx
-    N_z_stp = tx
-    theta_s, theta_e = 70, 110
+    Parameters:
+    - X: Input data of shape (# frames x # Rx x # Tx x ADC samples).
+
+    Returns:
+    - sph_pwr: Beamforming output
+    """
+
+    # Perform FFT on the input data
+    X = X[0:-1:2,:,:]
+    locs = locs[:,0:-1:2,:]
+    beat_freq = scipy.fft.fft(X, axis=2)
+
+    # Define index parameters
+    idxs = np.arange(0,20,1) #np.arange(0,X.shape[2])
+
+    # Define limits for theta and phi
+    theta_s, theta_e = 40, 140
     theta_s *= (np.pi/180)
     theta_e *= (np.pi/180)
     theta_rad_lim = [theta_s,theta_e]
-    d_theta = 2/180*np.pi
-    phi_s, phi_e = 70, 110
-    phi_s *= (np.pi/180)
-    phi_e *= (np.pi/180)
-    phi_rad_lim = [phi_s,phi_e]
-    d_phi = 5/180*np.pi
-    theta = np.arange(theta_rad_lim[0],theta_rad_lim[1],d_theta)
+    d_theta = 1/180*np.pi
+
+    # Generate arrays for theta and phi
+    theta = np.arange(theta_rad_lim[0], theta_rad_lim[1], d_theta)
     N_theta = len(theta)
-    phi = np.arange(phi_rad_lim[0],phi_rad_lim[1],d_phi)
-    N_phi = len(phi)
-    
     lm = 3e8/77e9
-    sph_pwr = np.zeros((num_frms, N_theta, N_phi, 5), dtype=complex)
-    sph_pwr_range = np.zeros((N_theta, N_phi, N_range), dtype=complex)
-    
-    x_idx = np.array([[0.,1.,2.,3.],[-2.,-1.,0.,1.]])
-    z_idx = np.array([[0.,0.,0.,0.],[1.,1.,1.,1.]])
-    s = lm / 2
+
+    # Initialize arrays for spherical power
+    sph_pwr = np.zeros((N_theta, len(idxs)), dtype=complex)
+    x_idx = np.array(np.squeeze(locs[0,:,:]))
+
+    print("Running this many iterations: %d " % (N_theta))
+
+    # Perform beamforming
     for kt in range(N_theta):
-        for kp in range(N_phi):
-       
-            cos_theta = np.cos(theta[kt])
             sin_theta = np.sin(theta[kt])
-            sin_phi = np.sin(phi[kp])
-            
-            sinp_cost = sin_phi * cos_theta
-            sinp_sint = sin_phi * sin_theta
-            
-            # cos_theta = np.cos(theta[ka])
-        
-            Vec = np.exp(-1j*(2*np.pi*(s*z_idx*sinp_cost + s*x_idx*sinp_sint)/lm))
-            VecRF = np.repeat(Vec[np.newaxis,:,:],num_frms,axis=0)
-            VecRFR = np.repeat(VecRF[:,:,:,np.newaxis],N_range,axis=3)
-            VecRFI = np.repeat(VecRF[:,:,:,np.newaxis],5,axis=3)
-            sph_pwr[:,kt,kp,:] = np.squeeze(np.sum(np.multiply(beat_freq[:,:,:,idxs],VecRFI),axis=(1,2)))
-            sph_pwr_range[kt,kp,:] = np.squeeze(np.sum(np.multiply(beat_freq,VecRFR),axis=(0,1,2)))
-    
-    pwr = np.squeeze(np.mean(abs(sph_pwr[:,:,:,2]),axis=0))**2
-    max_loc = np.unravel_index(pwr.argmax(), pwr.shape)
-    
-    ph_bf = np.unwrap(np.angle(np.squeeze(sph_pwr[:,max_loc[0], max_loc[1],:])), axis=0)
-    ph_bf = ph_bf - np.mean(ph_bf,axis=0)
-    
-    return sph_pwr[:,max_loc[0], max_loc[1],:], ph_bf, sph_pwr_range[max_loc[0], max_loc[1],:]
-    
+            Vec = np.exp(1j*(2*np.pi*(x_idx*sin_theta)/lm)) 
+            VecRFI = np.repeat(Vec[:, :, np.newaxis], len(idxs), axis=2)
+            sph_pwr[kt, :] = np.squeeze(np.sum(np.multiply(beat_freq[:, :, idxs], VecRFI), axis=(0, 1)))
+            print("Processed angle (%.2f)" % (theta[kt]*180/np.pi), end='\r')
+
+    return sph_pwr
+
+file = sio.loadmat("bf_data.mat")
+
+sph_pwr = beamform(file['a'], file['locs_z_original'])
+sio.savemat('bf_output15.mat',{"sph_pwr": sph_pwr})
+
 ### end helper functions ###
 
 
