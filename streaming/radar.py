@@ -4,12 +4,16 @@ import os
 import clr
 
 # helper functions
-def replace_filename(file1, exp_name):
-    with open(file1, 'r') as file:
+def replace_filename(lua_file, exp_name, exp_path):
+    with open(lua_file, 'r') as file:
         data = file.readlines()
-    data[0] = 'capture_file               =   "%s"\n' % exp_name
+    for i,line in enumerate(data):
+        if("capture_file               =" in line):
+            data[i] = 'capture_file               =   "%s"\n' % exp_name
+        if("SAVE_DATA_PATH = " in line):
+            data[i] = 'SAVE_DATA_PATH = "%s" .. capture_file .. ".bin""\n' % exp_path
 
-    with open(file1, 'w') as file:
+    with open(lua_file, 'w') as file:
         file.writelines(data)
 
 # radar class:
@@ -77,12 +81,13 @@ class radar():
             print('Test message success')
         return RtttNetClientAPI
 
-    def mmwave_capture(self, exp_name, script_name):
+    def mmwave_capture(self, exp_name, exp_path, script_name):
+        file1 = file1.replace("\\", "\\") 
         file1 = os.path.join(self.homedirectory,script_name)
         file2 = file1.replace("\\", "\\\\\\\\") 
         Lua_String = 'dofile("'+ file2 + '")'
         # update the lua file with new location to save the data
-        replace_filename(file1, exp_name)
+        replace_filename(file1, exp_name, exp_path)
         ErrStatus = self.RtttNetClientAPI.RtttNetClient.SendCommand(Lua_String)
         if not ErrStatus == (0, None):
             print ('The frame did not get collected :(')
