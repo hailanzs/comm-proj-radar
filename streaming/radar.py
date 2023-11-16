@@ -96,7 +96,8 @@ class radar():
             print('Radar configurated!')
 
     def mmwave_capture(self, exp_name, exp_path, script_name):
-        exp_path = exp_path.replace("\\", "\\\\\\\\") 
+        exp_path = exp_path.replace("\\", "\\\\\\\\") + "\\\\\\\\"
+        print(exp_path)
         script_name = script_name.replace("\\", "\\") 
         file1 = os.path.join(self.homedirectory,script_name)
         file2 = file1.replace("\\", "\\\\\\\\") 

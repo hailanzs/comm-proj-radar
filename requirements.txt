@@ -1,6 +1,12 @@
+matplotlib
 numpy
 scipy
-matplotlib
-mat73
-json
-
+argparse
+statistics
+sklearn
+natsort
+logging
+panda3d
+# multiprocessing
+# heapq
+# vlc # uncomment to run sounds in data capture
