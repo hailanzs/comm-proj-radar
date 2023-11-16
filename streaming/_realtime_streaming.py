@@ -5,13 +5,16 @@ from direct.task import Task
 from direct.gui.OnscreenText import OnscreenText
 import matplotlib.pyplot as plt
 import numpy as np
-from prod_dca import producer_real_time_1843
+from prod_dca import producer_real_time_1843,
+
+
+
 
 def consumer(q, index):
     app = MyApp(q)
     app.run()
 
-def stream(exp_num):
+def stream(exp_num, radar1):
 
     num_producers = 1
     num_consumers = 1
@@ -23,7 +26,7 @@ def stream(exp_num):
 
     producers = []
     consumers = []
-    producers.append(Process(target=producer_real_time_1843, args=(q_main, 0)))
+    producers.append(Process(target=producer_real_time_1843, args=(q_main, 0, radar1)))
 
     
     # Create consumer processes
@@ -63,7 +66,7 @@ class MyApp(ShowBase):
         # self.accept("escape", sys.exit, [0])
 
         #NEED TO CHANGE THESE EACH TIME
-        self.rfft_size = range_plot_len
+        self.rfft_size = 512
         self.rfft_range = [0, 1]
 
         # Create subplots for FFT and phase 

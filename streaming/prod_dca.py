@@ -18,31 +18,28 @@ import radar
 ########################################################
 ########## 1843 CODE#############################
 ########################################################
-def producer_real_time_1843(q, index):
+def producer_real_time_1843(q, index, radar1):
     
     print('')
-    print("num tx: ", num_tx)
-    print("num rx: ", num_rx)
-    print("samples_per_chirp: ", samples_per_chirp)
-    print("chirp_loops: ", chirp_loops) 
-    print("PERIODICITY: ", periodicity) 
-    print("NUM_FRAMES: ", NUM_FRAMES) 
-    print("freq_plot_len: ", freq_plot_len) 
-    print("range_plot_len: ", range_plot_len) 
+    print("num tx: ", radar1.num_tx)
+    print("num rx: ", radar1.num_rx)
+    print("samples_per_chirp: ", radar1.samples_per_chirp)
+    print("chirp_loops: ", radar1.chirp_loops) 
+    print("PERIODICITY: ", radar1.periodicity) 
+    print("NUM_FRAMES: ", radar1.NUM_FRAMES) 
     second_p = 0
     second_p_plot = 0
     frm_ctr = 0
-    total = np.zeros(shape=(NUM_FRAMES, samples_per_chirp), dtype=np.complex128)
-    unwrapped_phase = np.zeros(shape=(NUM_FRAMES), dtype=np.complex128)
+    total = np.zeros(shape=(radar1.NUM_FRAMES, radar1.samples_per_chirp), dtype=np.complex128)
+    unwrapped_phase = np.zeros(shape=(radar1.NUM_FRAMES), dtype=np.complex128)
     freq_spec = 0
     dca = DCA1000()
-    dca.sensor_config(chirps=num_tx, chirp_loops=chirp_loops, num_rx=num_rx, num_samples=samples_per_chirp)
+    dca.sensor_config(chirps=radar1.num_tx, chirp_loops=radar1.chirp_loops, num_rx=radar1.num_rx, num_samples=radar1.samples_per_chirp)
     prev_time = time.time()
-    initial_time = time.time()
     while True:
         adc_data = dca.read()
-        org_data = dca.organize(raw_frame=adc_data, num_chirps=num_tx*chirp_loops,
-         num_rx=num_rx, num_samples=samples_per_chirp, num_frames=1, model='1843')
+        org_data = dca.organize(raw_frame=adc_data, num_chirps=radar1.num_tx*radar1.chirp_loops,
+         num_rx=radar1.num_rx, num_samples=radar1.samples_per_chirp, num_frames=1, model='1843')
         frm_ctr+=1
         x = 0
 
@@ -52,33 +49,11 @@ def producer_real_time_1843(q, index):
 
         afx = np.squeeze(np.abs(fx))
 
-        total[0:-chirp_loops, :] = total[chirp_loops:, :]
-        total[-chirp_loops:, :] = fx
-        # noramlized_total = total - total[0, 0, :]
+        total[0:-radar1.chirp_loops, :] = total[radar1.chirp_loops:, :]
+        total[-radar1.chirp_loops:, :] = fx
         max_idx = np.argmax(np.sum(np.abs(total[3:]),axis=0))
-        # print(max_idx)
-        unwrapped_phase = np.unwrap(np.angle(total[:, max_idx]), axis=0)
-        # print(max_idx+6)
-        # if not PLOT_FFT:
-        #     unwrapped_phase = scipy.signal.convolve(unwrapped_phase, arr, mode='valid', method='auto')
-        # a, b = scipy.signal.butter(5, Wn=10, fs=500, btype='highpass')
-        # unwrapped_phase = scipy.signal.lfilter(a,b,unwrapped_phase)
-        unwrapped_phase_plot = scipy.signal.convolve(unwrapped_phase, arr, mode='valid', method='auto')
-        unwrapped_phase_plot += second_p_plot - unwrapped_phase_plot[0]
-        second_p_plot = unwrapped_phase_plot[1] 
 
-        unwrapped_phase += second_p - unwrapped_phase[0]
-        second_p = unwrapped_phase[1] 
-
-        if PLOT_FFT:
-            freq_spec = unwrapped_phase - np.mean(unwrapped_phase)
-            # freq_spec = np.abs(scipy.fft.fft(freq_spec,data_rate))
-            a,freq_spec = scipy.signal.welch(freq_spec,500)
-            # freq_spec = np.log10(freq_spec)
-            # freq_spec /= np.max(freq_spec)
-        freq_spec = freq_spec[0:freq_plot_len]
         now = time.time()
         if now - prev_time > 0.1:
             q.put(["fft", afx])
-            q.put(["freq", freq_spec])
             prev_time = now

@@ -28,6 +28,7 @@ class radar():
         self.num_tx = 2
         self.samples_per_chirp = 128 
         self.periodicity = 20
+        self.num_frames = 10
         self.homedirectory = home_dir
         self.file1 = open(os.path.join(self.homedirectory,lua_script), 'r')
         Lines = self.file1.readlines()
@@ -42,6 +43,8 @@ class radar():
                 self.samples_per_chirp = int(line[14:line.find('-')].strip())
             if("PERIODICITY = " in line):
                 self.periodicity = float(line[14:line.find('-')].strip())
+            if("NUM_FRAMES = " in line):
+                self.num_frames= float(line[12:line.find('-')].strip())
 
         self.data_rate = int(1 / (self.periodicity * 0.001) / 2)
         self.freq_plot_len = self.data_rate  // 2

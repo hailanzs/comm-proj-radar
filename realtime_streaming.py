@@ -32,7 +32,7 @@ else:
 
 # To edit the plots and how they show up go to streaming._realtime_streaming.py
 # Here we will run the plotting code to see data in realtime
-rtstream.stream(1)
+rtstream.stream(1, radar1)
 
 
 
