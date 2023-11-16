@@ -11,7 +11,7 @@ def replace_filename(lua_file, exp_name, exp_path):
         if("capture_file               =" in line):
             data[i] = 'capture_file               =   "%s"\n' % exp_name
         if("SAVE_DATA_PATH = " in line):
-            data[i] = 'SAVE_DATA_PATH = "%s" .. capture_file .. ".bin""\n' % exp_path
+            data[i] = 'SAVE_DATA_PATH = "%s" .. capture_file .. ".bin"\n' % exp_path
 
     with open(lua_file, 'w') as file:
         file.writelines(data)
@@ -96,7 +96,7 @@ class radar():
             print('Radar configurated!')
 
     def mmwave_capture(self, exp_name, exp_path, script_name):
-        exp_path = exp_path.replace("\\", "\\") 
+        exp_path = exp_path.replace("\\", "\\\\\\\\") 
         script_name = script_name.replace("\\", "\\") 
         file1 = os.path.join(self.homedirectory,script_name)
         file2 = file1.replace("\\", "\\\\\\\\") 
