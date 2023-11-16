@@ -85,7 +85,6 @@ class radar():
         return RtttNetClientAPI
 
     def mmwave_config(self, script_name):
-        file1 = file1.replace("\\", "\\") 
         file1 = os.path.join(self.homedirectory,script_name)
         file2 = file1.replace("\\", "\\\\\\\\") 
         Lua_String = 'dofile("'+ file2 + '")'
@@ -97,7 +96,8 @@ class radar():
             print('Radar configurated!')
 
     def mmwave_capture(self, exp_name, exp_path, script_name):
-        file1 = file1.replace("\\", "\\") 
+        exp_path = exp_path.replace("\\", "\\") 
+        script_name = script_name.replace("\\", "\\") 
         file1 = os.path.join(self.homedirectory,script_name)
         file2 = file1.replace("\\", "\\\\\\\\") 
         Lua_String = 'dofile("'+ file2 + '")'
