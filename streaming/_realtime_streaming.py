@@ -5,7 +5,7 @@ from direct.task import Task
 from direct.gui.OnscreenText import OnscreenText
 import matplotlib.pyplot as plt
 import numpy as np
-from prod_dca import producer_real_time_1843,
+from prod_dca import producer_real_time_1843
 
 
 
@@ -86,7 +86,6 @@ class MyApp(ShowBase):
 
         self.taskMgr.add(self.updateDataTask, "updateDataTask")
         self.taskMgr.add(self.updateRFFTPlotTask, "updateFFTPlotTask")
-        self.taskMgr.add(self.updatePhasePlotTask, "updatePhasePlotTask")
 
     def updateRFFTPlotTask(self, task):
         self.line_rfft[0].set_ydata(self.rfft_y_data)
