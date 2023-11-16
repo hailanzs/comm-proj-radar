@@ -76,13 +76,25 @@ class radar():
             time.sleep(1)
 
         print('Sending test message to RSTD')
-        Lua_String = r'WriteToLog("Running script from MATLAB\\n", "green")'
+        Lua_String = r'WriteToLog("Running script from Python\\n", "green")'
         ErrStatus = RtttNetClientAPI.RtttNetClient.SendCommand(Lua_String)
         if not ErrStatus == (0, None):
             print ('mmWaveStudio Connection Failed')
         else:
             print('Test message success')
         return RtttNetClientAPI
+
+    def mmwave_config(self, script_name):
+        file1 = file1.replace("\\", "\\") 
+        file1 = os.path.join(self.homedirectory,script_name)
+        file2 = file1.replace("\\", "\\\\\\\\") 
+        Lua_String = 'dofile("'+ file2 + '")'
+        # update the lua file with new location to save the data
+        ErrStatus = self.RtttNetClientAPI.RtttNetClient.SendCommand(Lua_String)
+        if not ErrStatus == (0, None):
+            print ('The config did not update :(')
+        else:
+            print('Radar configurated!')
 
     def mmwave_capture(self, exp_name, exp_path, script_name):
         file1 = file1.replace("\\", "\\") 
