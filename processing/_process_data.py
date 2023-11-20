@@ -52,10 +52,10 @@ def beamform(X, locs):
 
     return sph_pwr
 
-file = sio.loadmat("bf_data.mat")
-
-sph_pwr = beamform(file['a'], file['locs_z_original'])
-sio.savemat('bf_output15.mat',{"sph_pwr": sph_pwr})
+# file = sio.loadmat("bf_data.mat")
+# 
+# sph_pwr = beamform(file['a'], file['locs_z_original'])
+# sio.savemat('bf_output15.mat',{"sph_pwr": sph_pwr})
 
 ### end helper functions ###
 

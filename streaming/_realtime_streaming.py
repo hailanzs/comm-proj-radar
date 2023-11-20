@@ -20,7 +20,7 @@ def stream(exp_num, radar1):
     num_consumers = 1
     max_queue_size = 10000
 
-    logging.info(f"Execution happening with {num_producers} producers and {num_consumers} consumers")
+    logging.info(r"Execution happening with %d producers and %d consumers" % (num_producers, num_consumers))
 
     q_main = Queue(maxsize=max_queue_size)
 
@@ -53,7 +53,7 @@ def stream(exp_num, radar1):
         for c in consumers:
             c.join()
     except KeyboardInterrupt as ki:
-        print(f"Program terminated by keyboard")
+        print(r"Program terminated by keyboard")
 
     logging.info('Parent process exiting...')
     # update status to done, or cancelled or error?
