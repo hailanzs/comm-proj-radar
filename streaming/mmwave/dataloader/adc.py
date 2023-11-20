@@ -372,6 +372,6 @@ class DCA1000:
                 (num_frames, num_chirps, num_samples, num_rx)).swapaxes(2, 3)
 
         else:
-            raise ValueError(f'Model {model} is not a supported model')
+            raise ValueError(r'Model %d is not a supported model' % model)
 
         return ret
