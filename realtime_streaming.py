@@ -18,7 +18,7 @@ config_lua_script = r'2' # relative path to the lua scripts for continuous it in
 record_lua_script =r'scripts/1843_record.lua' # relative path to the lua scripts for recording it in is the home dir(ex. scripts/1843_record.lua)
 
 # initialize the radar class, this runs .lua scripts from mmWaveStudio and captures data
-radar1 = radar(home_dir, rtt_path, config_lua_script)
+radar1 = radar.radar(home_dir, rtt_path,config_lua_script)
 
 # check if you are maybbe accidently overwriting a file
 if os.path.isfile((os.path.join(exp_path, r"%s.bin" % exp_name))):
