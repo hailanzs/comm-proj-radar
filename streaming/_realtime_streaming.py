@@ -1,3 +1,10 @@
+
+import sys
+import warnings
+
+warnings.simplefilter("ignore", UserWarning)
+sys.coinit_flags = 2
+
 from multiprocessing import Process, Queue
 import logging
 from direct.showbase.ShowBase import ShowBase
@@ -14,9 +21,9 @@ def consumer(q, index):
     app = MyApp(q)
     app.run()
 
-def stream(exp_num, radar1):
+def main(exp_num):
 
-    num_producers = 1
+    num_producers = 2
     num_consumers = 1
     max_queue_size = 10000
 
@@ -26,7 +33,7 @@ def stream(exp_num, radar1):
 
     producers = []
     consumers = []
-    producers.append(Process(target=producer_real_time_1843, args=(q_main, 0, radar1)))
+    producers.append(Process(target=producer_real_time_1843, args=(q_main, 0)))
 
     
     # Create consumer processes
@@ -73,10 +80,10 @@ class MyApp(ShowBase):
         plt.ion()
         self.fig = plt.figure()
         self.ax_rfft = self.fig.add_subplot(111)
-        self.text_rfft = self.ax_rfft.text(0.90, 0.85, "Nothing" , fontsize=40, transform=self.ax_rfft.transAxes, verticalalignment='top', ha='right')
+        #self.text_rfft = self.ax_rfft.text(0.90, 0.85, "Nothing" , fontsize=40, transform=self.ax_rfft.transAxes, verticalalignment='top', ha='right')
 
-        mng = plt.get_current_fig_manager()
-        mng.window.state('zoomed') #works fine on Windows!
+        #mng = plt.get_current_fig_manager()
+        #mng.window.state('zoomed') #works fine on Windows!
 
         # initialize FFT plot
         self.rfft_x_data = np.arange(self.rfft_size)
@@ -85,7 +92,7 @@ class MyApp(ShowBase):
         self.ax_rfft.set_ylim(self.rfft_range)
 
         self.taskMgr.add(self.updateDataTask, "updateDataTask")
-        self.taskMgr.add(self.updateRFFTPlotTask, "updateFFTPlotTask")
+        self.taskMgr.add(self.updateRFFTPlotTask, "updateRFFTPlotTask")
 
     def updateRFFTPlotTask(self, task):
         self.line_rfft[0].set_ydata(self.rfft_y_data)
@@ -93,8 +100,8 @@ class MyApp(ShowBase):
                                     [xx, yy]]) for (xx, yy) in zip(self.rfft_x_data, self.rfft_y_data)])
         self.ax_rfft.set_ylim([np.min(self.rfft_y_data)-1, np.max(self.rfft_y_data)+1])
         max_ind = np.argmax(self.rfft_y_data)
-        self.text_rfft.remove()
-        self.text_rfft = self.ax_rfft.text(0.56, 0.85, "Here is some text", transform=self.ax_rfft.transAxes, fontsize=15,verticalalignment='top', ha='left')
+        #self.text_rfft.remove()
+        #self.text_rfft = self.ax_rfft.text(0.56, 0.85, "Here is some text", transform=self.ax_rfft.transAxes, fontsize=15,verticalalignment='top', ha='left')
         self.fig.canvas.draw()
         self.fig.canvas.flush_events()
         return Task.cont
@@ -102,9 +109,9 @@ class MyApp(ShowBase):
     def updateDataTask(self, task):
         try:
             while self.q.qsize() > 0:
-                self.counter += 1
                 new_data = self.q.get(block=False)
                 if new_data[0] == "rfft":
+                    
                     self.rfft_y_data = new_data[1]
                 
         except:
@@ -114,3 +121,5 @@ class MyApp(ShowBase):
 
 
 
+if __name__ == '__main__':
+    main(0)
