@@ -14,9 +14,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from prod_dca import producer_real_time_1843
 
-
-
-
 def consumer(q, index):
     app = MyApp(q)
     app.run()
@@ -111,7 +108,6 @@ class MyApp(ShowBase):
             while self.q.qsize() > 0:
                 new_data = self.q.get(block=False)
                 if new_data[0] == "rfft":
-                    
                     self.rfft_y_data = new_data[1]
                 
         except:
