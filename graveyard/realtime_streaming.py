@@ -5,7 +5,7 @@ from direct.task import Task
 from direct.gui.OnscreenText import OnscreenText
 import matplotlib.pyplot as plt
 import numpy as np
-import _realtime_streaming as rtstream
+import realtime_streaming as rtstream
 import radar as radar
 import os
 from multiprocessing import Process, Queue
