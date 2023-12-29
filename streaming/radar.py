@@ -2,6 +2,7 @@ import time
 
 import os
 import clr
+import processing.utility as utility
 
 # helper functions
 def replace_filename(lua_file, exp_name, exp_path):
@@ -30,25 +31,8 @@ class radar():
         self.periodicity = 20
         self.num_frames = 10
         self.homedirectory = home_dir
-        self.file1 = open(os.path.join(self.homedirectory,lua_script), 'r')
-        Lines = self.file1.readlines()
-        for line in Lines:
-            if("CHIRP_LOOPS =" in line):
-                self.chirp_loops = int(line[13:line.find('-')].strip())
-            if("NUM_RX =" in line):
-                self.num_rx = int(line[9:line.find('-')].strip())
-            if("NUM_TX =" in line):
-                self.num_tx = int(line[9:line.find('-')].strip())
-            if("ADC_SAMPLES =" in line):
-                self.samples_per_chirp = int(line[14:line.find('-')].strip())
-            if("PERIODICITY = " in line):
-                self.periodicity = float(line[14:line.find('-')].strip())
-            if("NUM_FRAMES = " in line):
-                self.num_frames= float(line[12:line.find('-')].strip())
+        self.num_rx, self.num_tx, self.samples_per_chirp, self.periodicity, self.num_frames, self.chirp_loops, self.data_rate, self.freq_plot_len, self.range_plot_len = utility.read_radar_params(os.path.join(self.homedirectory,lua_script))
 
-        self.data_rate = int(1 / (self.periodicity * 0.001) / 2)
-        self.freq_plot_len = self.data_rate  // 2
-        self.range_plot_len = self.samples_per_chirp
         self.power_dict = dict()
         self.RtttNetClientAPI = self.Init_RSTD_Connection(path_name)
     
