@@ -4,8 +4,17 @@ import processing.singlechip_raw_data_reader_example as TI
 
 ######################################################################################################
 def save_adc_data(filename, home_dir, capture_data_dir, json_filename, args):
+    """
+    Reformats the data from the raw .bin file to a .mat file which contains the data placed into a
+        multidimensional array of size (frames, number of TX, number of Rx, number of ADC samples)
+    Paramters:
+    - filename: name of the .bin file you want to reformat 
+    - home_dir: path to your project directory (aka comm-proj-radars)
+    - capture_data_dir: path to you captured data (this must be relative to the home_dir)
+    - json_filename: the JSON configuration file, name is everything excluding .setup.json or .mmwave.json 
+    - args: radar chirp paramters arguments (num_tx, num_rx, adc_samples, chirp_loops, tx_en, rx_en)
+    """
     # If you have changed any chirp parameters then you need to load the args:
-    # args = [num_tx, num_rx, adc_samples, chirp_loops, tx_en, rx_en]
     num_tx = args[0]
     num_rx = args[1]
     adc_samples = args[2]
@@ -60,25 +69,3 @@ def save_adc_data(filename, home_dir, capture_data_dir, json_filename, args):
 
     # Call rawDataReader (You'll need to have the rawDataReader function defined or imported)
     TI.rawDataReader(setup_filename, rawDataFileName, radarCubeDataFileName)
-
-
-#################### helper ########################3
-def read_lua(lua_file):
-    with open(lua_file, 'r') as file:
-        data = file.readlines()
-    for i,line in enumerate(data):
-        if("CHIRP_LOOPS =" in line):
-            chirp_loops = int(line[13:line.find('-')].strip())
-        if("NUM_RX =" in line):
-            num_rx = int(line[9:line.find('-')].strip())
-        if("NUM_TX =" in line):
-            num_tx = int(line[9:line.find('-')].strip())
-        if("ADC_SAMPLES =" in line):
-            samples_per_chirp = int(line[14:line.find('-')].strip())
-        if("PERIODICITY = " in line):
-            periodicity = float(line[14:line.find('-')].strip())
-        if("NUM_FRAMES = " in line):
-            num_frames= float(line[12:line.find('-')].strip())
-
-
-    return num_tx, num_rx, samples_per_chirp, chirp_loops

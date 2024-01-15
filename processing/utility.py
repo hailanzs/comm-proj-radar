@@ -3,6 +3,14 @@ import os
 import numpy as np
 
 def read_radar_params(lua_script):
+    """
+    Helper function that reads the radar paramters from a input lua script.
+    It assumes that the lua script has the following parameters input to variables 
+        (chirp loops, number rx, number tx, adc samples, periodicity, number of frames).
+    Variables should be named as listed below.
+    Paramters:
+    - lua_script: lua configuration file
+    """
     file1 = open(os.path.join(lua_script), 'r')
     Lines = file1.readlines()
     for line in Lines:
