@@ -14,8 +14,10 @@ This repository contains the material for the robotics project of the course COM
 # Homeworks
 There will be two homeworks that will help and prepare you for the project:
 
-- [Ungraded HW](exercise_1.ipynb, exercise_2.ipynb): Introduction to radar image processing: beamforming, matched filter, and synthetic aperture radar in one dimension. This homework is **ungraded**. ==Due date: TBD==
+- [Ungraded HW1](exercise_1.ipynb),[Ungraded HW2](exercise_2.ipynb): Introduction to radar image processing: beamforming, matched filter, and synthetic aperture radar in one dimension. This homework is **ungraded**. ==Due date: TBD==
 - [Graded HW](evaluation.ipynb): Extend the exercises to 2D. This homework is **graded**. ==Due date: TBD==
+
+Data is provided at this [link](https://drive.google.com/drive/folders/1rPqQznJ2rB3iS7kcQkPsRqtA1RNj6ZbM?usp=drive_link).
 
 # Studying Material & Resources
 Check out the wiki for more information!
