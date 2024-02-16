@@ -20,7 +20,7 @@ There will be two homeworks that will help and prepare you for the project:
 Data is provided at this [link](https://drive.google.com/drive/folders/1rPqQznJ2rB3iS7kcQkPsRqtA1RNj6ZbM?usp=drive_link).
 
 # Studying Material & Resources
-Check out the wiki for more information!
+Check out the [wiki](https://github.com/hailanzs/comm-proj-radar/wiki) for more information!
 
 # General Info
 
