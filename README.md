@@ -1,5 +1,5 @@
-# COM-304: Communication Project. Robotics Project
-This repository contains the material for the robotics project of the course COM-304 at EPFL.
+# COM-304: Communication Project. mmWave Radars
+This repository contains the material for the mmWave radar project of the course COM-304 at EPFL.
 
 # Important Dates
 
