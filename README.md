@@ -21,8 +21,8 @@ Advanced Topics:
 
 # Study Material: Tutorials
 TI mmWave Radar Setup:
-- [Getting started with TI Radars](https://github.com/hailanzs/comm-proj-radar/wiki): This guide will step you through installation and set up for the TI radars and this GitHub repo.
-- [Recorded Tutorial](https://drive.google.com/file/d/1uaS0wtz7ObpLxDCFIc6ieWcw1DtBLeYQ/view?usp=sharing)
+- [Getting started with TI Radars](https://github.com/hailanzs/comm-proj-radar/wiki): Wiki quid that steps you through installation and set up for radars and this GitHub repo.
+- [Recorded Tutorial](https://drive.google.com/file/d/1uaS0wtz7ObpLxDCFIc6ieWcw1DtBLeYQ/view?usp=sharing): Note that you still need to set up your computer as described in the Wiki before following this.
 
 TI Provided Material:
 - [TI FMCW Radar Tutorials](https://www.ti.com/video/series/mmwave-training-series.html)
