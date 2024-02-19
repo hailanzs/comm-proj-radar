@@ -4,8 +4,8 @@
 
 This repository contains the material for the mmWave radar project of the course COM-304 at EPFL. We have prepared tutorial and videos on background information listed below. We recommend going through the videos in order.
 
-# Studying Material & Resources
-- [Getting started with TI Radars](https://github.com/hailanzs/comm-proj-radar/wiki): This guide will step you through installation and set up for the TI radars and this GitHub repo.
+# Study Material: Background Lectures and Reading Material
+
 
 We also have videos on relevant background material in wireless sensing and imaging. Go through these videos to get a basic understanding. The radar signal processing videos will contain extremely important information regarding how you will implement your homeworks. Algorithms 1 & 3 correspond to beamforming and matched filter which are the heart of the homeworks. 
 
@@ -13,16 +13,21 @@ We also have videos on relevant background material in wireless sensing and imag
 - [Radar Signal Processing Part 1]
 - [Radar Signal Processing Part 2]
 
-TI Provided Material:
-- [TI FMCW Radar Tutorials](https://www.ti.com/video/series/mmwave-training-series.html)
-- [TI Sensors Forum](https://e2e.ti.com/support/sensors-group/)
-- [TI Chirp Paramter Understanding](https://www.ti.com/lit/an/swra553a/swra553a.pdf?ts=1684912880969&ref_url=https3A2F2Fwww.ti.com2Ftool2FMMWAVE-DFP)
-
 If you are interested in more information on wireless networks, check out the videos references in the [Wireless Communications Project GitHub](https://github.com/samhy99/COM-304-BladeRF).
 
 Advanced Topics:
 - [Kalman Filters](https://drive.google.com/file/d/1_w2JmI44n0ccYkC14DZS7LDYJYYkVMf1/view?usp=drive_link)
 - [Hidden Markov Models & Particle Filters](https://drive.google.com/file/d/1IkyOEt_X85PvOVKjdYTHT18G8vaQOyIa/view?usp=drive_link)
+
+# Study Material: Tutorials
+TI mmWave Radar Setup:
+- [Getting started with TI Radars](https://github.com/hailanzs/comm-proj-radar/wiki): This guide will step you through installation and set up for the TI radars and this GitHub repo.
+- [Recorded Tutorial](https://drive.google.com/file/d/1uaS0wtz7ObpLxDCFIc6ieWcw1DtBLeYQ/view?usp=sharing)
+
+TI Provided Material:
+- [TI FMCW Radar Tutorials](https://www.ti.com/video/series/mmwave-training-series.html)
+- [TI Sensors Forum](https://e2e.ti.com/support/sensors-group/)
+- [TI Chirp Paramter Understanding](https://www.ti.com/lit/an/swra553a/swra553a.pdf?ts=1684912880969&ref_url=https3A2F2Fwww.ti.com2Ftool2FMMWAVE-DFP)
 
 
 # Homeworks
