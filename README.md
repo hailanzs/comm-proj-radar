@@ -3,14 +3,22 @@ This repository contains the material for the mmWave radar project of the course
 
 # Studying Material & Resources
 [Getting started with TI Radars](https://github.com/hailanzs/comm-proj-radar/wiki): This guide will step you through installation and set up for the TI radars and this GitHub repo.
+
 [Wireless Channel](https://drive.google.com/file/d/1U9uZPo3BGUd1OmABDrBEvJCC7zzfRUcX/view?usp=sharing)
+
 [Up Down Conversion](https://drive.google.com/file/d/15Fti4fNHtR_kuQRuEFB8cPZiXWYNm3HR/view?usp=sharing)
+
 [Sampling](https://drive.google.com/file/d/15-WBpQgg1JW0sK7LD4B715cO8PVLUZH_/view?usp=sharing)
+
 [Radar Signal Processing Part 1]
+
 [Radar Signal Processing Part 2]
 
+
 Advanced Topics:
+
 [Kalman Filters](https://drive.google.com/file/d/1_w2JmI44n0ccYkC14DZS7LDYJYYkVMf1/view?usp=drive_link)
+
 [Hidden Markov Models & Particle Filters](https://drive.google.com/file/d/1IkyOEt_X85PvOVKjdYTHT18G8vaQOyIa/view?usp=drive_link)
 
 
