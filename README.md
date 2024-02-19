@@ -1,6 +1,6 @@
 # COM-304: Communication Project. mmWave Radars
 
-![Pull Figure](Wiki_Images/radar.pdf)
+![Pull Figure](Wiki_Images/radar.jpg)
 
 This repository contains the material for the mmWave radar project of the course COM-304 at EPFL. We have prepared tutorial and videos on background information listed below. We recommend going through the videos in order.
 
