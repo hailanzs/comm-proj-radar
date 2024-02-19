@@ -1,8 +1,11 @@
 # COM-304: Communication Project. mmWave Radars
-This repository contains the material for the mmWave radar project of the course COM-304 at EPFL. We have prepared tutorial and lecture videos on background information listed below. We recommend going through the lecture videos in order.
+This repository contains the material for the mmWave radar project of the course COM-304 at EPFL. We have prepared tutorial and videos on background information listed below. We recommend going through the videos in order.
 
 # Studying Material & Resources
 -[Getting started with TI Radars](https://github.com/hailanzs/comm-proj-radar/wiki): This guide will step you through installation and set up for the TI radars and this GitHub repo.
+
+We also have videos on relevant background material in wireless sensing and imaging. Go through these videos to get a basic understanding. The radar signal processing videos will contain extremely important information regarding how you will implement your homeworks. Algorithms 1 & 3 correspond to beamforming and matched filter which are the heart of the homeworks. 
+
 - [Wireless Channel](https://drive.google.com/file/d/1U9uZPo3BGUd1OmABDrBEvJCC7zzfRUcX/view?usp=sharing)
 - [Up Down Conversion](https://drive.google.com/file/d/15Fti4fNHtR_kuQRuEFB8cPZiXWYNm3HR/view?usp=sharing)
 - [Sampling](https://drive.google.com/file/d/15-WBpQgg1JW0sK7LD4B715cO8PVLUZH_/view?usp=sharing)
