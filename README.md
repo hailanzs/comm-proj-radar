@@ -10,7 +10,7 @@ This repository contains the material for the mmWave radar project of the course
 We also have videos on relevant background material in wireless sensing and imaging. Go through these videos to get a basic understanding. The radar signal processing videos will contain extremely important information regarding how you will implement your homeworks. Algorithms 1 & 3 correspond to beamforming and matched filter which are the heart of the homeworks. 
 
 - [Wireless Channel](https://drive.google.com/file/d/1U9uZPo3BGUd1OmABDrBEvJCC7zzfRUcX/view?usp=sharing)
-- [Radar Signal Processing Part 1]
+- [Radar Signal Processing Part 1](https://drive.google.com/file/d/1yGauDMUWJAcJZ8CXglKKwFKr1sgutI52/view?usp=drive_link)
 - [Radar Signal Processing Part 2]
 
 If you are interested in more information on wireless networks, check out the videos references in the [Wireless Communications Project GitHub](https://github.com/samhy99/COM-304-BladeRF).
