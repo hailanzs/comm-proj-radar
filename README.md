@@ -11,7 +11,7 @@ We also have videos on relevant background material in wireless sensing and imag
 
 - [Wireless Channel](https://drive.google.com/file/d/1U9uZPo3BGUd1OmABDrBEvJCC7zzfRUcX/view?usp=sharing)
 - [Radar Signal Processing Part 1](https://drive.google.com/file/d/1yGauDMUWJAcJZ8CXglKKwFKr1sgutI52/view?usp=drive_link)
-- [Radar Signal Processing Part 2]
+- [Radar Signal Processing Part 2](https://drive.google.com/file/d/1px1rs0pZC4aFFp012tHNV9iMDyW1iZEy/view?usp=drive_link)
 
 If you are interested in more information on wireless networks, check out the videos references in the [Wireless Communications Project GitHub](https://github.com/samhy99/COM-304-BladeRF).
 
